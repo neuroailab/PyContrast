@@ -10,7 +10,10 @@ class RGBSingleHead(nn.Module):
         super(RGBSingleHead, self).__init__()
 
         name, width = self._parse_width(name)
-        dim_in = int(2048 * width)
+        if name == 'resnet18':
+            dim_in = int(512 * width)
+        else:
+            dim_in = int(2048 * width)
         self.width = width
 
         self.encoder = model_dict[name](width=width)
@@ -56,7 +59,10 @@ class RGBMultiHeads(RGBSingleHead):
     def __init__(self, name='resnet50', head='linear', feat_dim=128):
         super(RGBMultiHeads, self).__init__(name, head, feat_dim)
 
-        self.head_jig = JigsawHead(dim_in=int(2048*self.width),
+        dim_in = int(2048*self.width)
+        if name == 'resnet18':
+            dim_in = int(512*self.width)
+        self.head_jig = JigsawHead(dim_in=dim_in,
                                    dim_out=feat_dim,
                                    head=head)
 
@@ -84,6 +90,8 @@ class CMCSingleHead(nn.Module):
 
         name, width = self._parse_width(name)
         dim_in = int(2048 * width)
+        if name == 'resnet18':
+            dim_in = int(512*width)
         self.width = width
 
         self.encoder1 = model_dict[name](width=width, in_channel=1)
@@ -143,10 +151,13 @@ class CMCMultiHeads(CMCSingleHead):
     def __init__(self, name='resnet50', head='linear', feat_dim=128):
         super(CMCMultiHeads, self).__init__(name, head, feat_dim)
 
-        self.head1_jig = JigsawHead(dim_in=int(2048*self.width),
+        dim_in = int(2048*self.width)
+        if name == 'resnet18':
+            dim_in = int(512*self.width)
+        self.head1_jig = JigsawHead(dim_in=dim_in,
                                     dim_out=feat_dim,
                                     head=head)
-        self.head2_jig = JigsawHead(dim_in=int(2048*self.width),
+        self.head2_jig = JigsawHead(dim_in=dim_in,
                                     dim_out=feat_dim,
                                     head=head)
 

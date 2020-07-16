@@ -411,6 +411,7 @@ def wide_resnet101_2(pretrained=False, progress=True, **kwargs):
 
 
 model_dict = {
+    'resnet18': resnet18,
     'resnet50': resnet50,
     'resnet101': resnet101,
     'resnet152': resnet152,
