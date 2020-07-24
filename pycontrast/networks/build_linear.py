@@ -8,6 +8,8 @@ def build_linear(opt):
         n_feat = 2048 * 4
     elif arch.endswith('x2'):
         n_feat = 2048 * 2
+    elif arch == 'resnet18':
+        n_feat = 512
     else:
         n_feat = 2048
 
