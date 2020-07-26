@@ -1,0 +1,1 @@
+SKIP_POOL=1 python main_linear.py --method InfoMin --ckpt save_sy/InfoMin_resnet18_RGB_Jig_True_moco_aug_D_mlp_0.15_cosine/ckpt_epoch_200.pth --aug_linear RA --data_folder /data5/chengxuz/Dataset/imagenet_raw/ --multiprocessing-distributed --world-size 1 --rank 0 --model_path save_sy --arch resnet18 --learning_rate 0.01 "$@"

@@ -12,6 +12,9 @@ def build_linear(opt):
         n_feat = 512
     else:
         n_feat = 2048
+    import os
+    if 'SKIP_POOL' in os.environ:
+        n_feat = n_feat * 7 * 7
 
     classifier = nn.Linear(n_feat, n_class)
     return classifier

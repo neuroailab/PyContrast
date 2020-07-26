@@ -217,7 +217,9 @@ class ResNet(nn.Module):
         x = self.layer3(x)
         x = self.layer4(x)
 
-        x = self.avgpool(x)
+        import os
+        if 'SKIP_POOL' not in os.environ:
+            x = self.avgpool(x)
         x = torch.flatten(x, 1)
 
         return x
